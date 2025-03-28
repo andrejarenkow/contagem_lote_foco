@@ -25,7 +25,7 @@ def process_file(file, codigo_evento, codigo_fotografo):
     
     return df
 
-st.title("Processador de Arquivo de Texto")
+st.title("Contagem de fotos por lote")
 
 uploaded_file = st.file_uploader("Faça o upload do arquivo .txt", type=["txt"])
 codigo_fotografo = st.selectbox('Selecione o código do fotógrafo:', options = ['LENS',''])
