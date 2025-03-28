@@ -40,7 +40,8 @@ if text_input and codigo_evento:
         st.write("### Distribuição de fotos por lote")
         contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].count().reset_index()
         
-        fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote")
+        fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
+        fig.update_traces(textposition='outside')
         
         st.plotly_chart(fig)
 
