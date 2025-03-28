@@ -19,7 +19,8 @@ def process_text(text, codigo_evento):
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
     df = df[df["Cód."].str.startswith(f"LENS{codigo_evento}")].reset_index(drop=True)
-    df["Lote"] = df["Cód."].str[10]
+    # Extrair o número logo após "LENS{codigo_evento}" como o Lote
+    df["Lote"] = df["Cód."].str[len(f"LENS{codigo_evento}")].astype(str)
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
     
     return df
@@ -39,7 +40,7 @@ if text_input and codigo_evento:
         
         # Criar gráfico
         st.write("### Distribuição de fotos por lote")
-        contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].sum().reset_index()
+        contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].count().reset_index()
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote")
         
