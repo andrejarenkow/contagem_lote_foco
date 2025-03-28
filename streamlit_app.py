@@ -3,7 +3,7 @@ import pandas as pd
 import re
 import plotly.express as px
 
-def process_text(text, codigo_evento):
+def process_text(text, codigo_evento, codigo_fotografo):
     linhas = text.split("\n")  # Separar por linhas
     
     dados = []
@@ -18,7 +18,7 @@ def process_text(text, codigo_evento):
         return None  # Retorna None se nenhum dado for encontrado
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
-    df = df[df["Cód."].str.startswith(f"LENS{codigo_evento}")].reset_index(drop=True)
+    df = df[df["Cód."].str.startswith(f"{codigo_fotografo}{codigo_evento}")].reset_index(drop=True)
     # Extrair o número logo após "LENS{codigo_evento}" como o Lote
     df["Lote"] = df["Cód."].str[len(f"LENS{codigo_evento}")].astype(str)
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
@@ -28,11 +28,11 @@ def process_text(text, codigo_evento):
 st.title("Processador de Texto")
 
 text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
-
+codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
 codigo_evento = st.text_input("Digite o código do evento:")
 
 if text_input and codigo_evento:
-    df_resultante = process_text(text_input, codigo_evento)
+    df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
     
     if df_resultante is not None and not df_resultante.empty:
 
