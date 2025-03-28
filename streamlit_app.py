@@ -3,7 +3,7 @@ import pandas as pd
 import re
 import plotly.express as px
 
-def process_file(file, codigo_evento):
+def process_file(file, codigo_evento, codigo_fotografo):
     linhas = file.readlines()
     linhas = [linha.decode("utf-8") for linha in linhas]  # Decodificar para string
     
@@ -19,7 +19,7 @@ def process_file(file, codigo_evento):
         return None  # Retorna None se nenhum dado for encontrado
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
-    df = df[df["Cód."].str.startswith(f"LENS{codigo_evento}")].reset_index(drop=True)
+    df = df[df["Cód."].str.startswith(f"{codigo_fotografo}{codigo_evento}")].reset_index(drop=True)
     df["Lote"] = df["Cód."].str[10]
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
     
@@ -28,11 +28,11 @@ def process_file(file, codigo_evento):
 st.title("Processador de Arquivo de Texto")
 
 uploaded_file = st.file_uploader("Faça o upload do arquivo .txt", type=["txt"])
-
+codigo_fotografo = st.selectbox('Selecione o código do fotógrafo:', options = ['LENS','']
 codigo_evento = st.text_input("Digite o código do evento:")
 
 if uploaded_file and codigo_evento:
-    df_resultante = process_file(uploaded_file, codigo_evento)
+    df_resultante = process_file(uploaded_file, codigo_evento, codigo_fotografo)
     
     if df_resultante is not None and not df_resultante.empty:
 
