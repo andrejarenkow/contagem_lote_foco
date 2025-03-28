@@ -38,7 +38,7 @@ if uploaded_file and codigo_evento:
 
         # Criar gráfico
         st.write("### Distribuição de fotos por lote")
-        contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].sum().reset_index()
+        contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].count().reset_index()
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote")
         
