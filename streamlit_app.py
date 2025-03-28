@@ -28,7 +28,7 @@ def process_file(file, codigo_evento, codigo_fotografo):
 st.title("Processador de Arquivo de Texto")
 
 uploaded_file = st.file_uploader("Faça o upload do arquivo .txt", type=["txt"])
-codigo_fotografo = st.selectbox('Selecione o código do fotógrafo:', options = ['LENS','']
+codigo_fotografo = st.selectbox('Selecione o código do fotógrafo:', options = ['LENS',''])
 codigo_evento = st.text_input("Digite o código do evento:")
 
 if uploaded_file and codigo_evento:
