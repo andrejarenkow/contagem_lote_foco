@@ -63,6 +63,17 @@ if text_input and codigo_evento:
         # Mostrando o gráfico
         col2.plotly_chart(fig)
 
+        # Criar gráfico por resolução
+        col2.write("### Distribuição de fotos por lote")
+        df_resultante['Lote'] = df_resultante['Lote'].astype(str)
+        contagem_por_lote = df_resultante.groupby(["Resolução"])["Número de Pedidos"].count().reset_index()
+        
+        fig_res = px.bar(contagem_por_lote, x="Resolução", y="Número de Pedidos", title="Número de Pedidos por resolução", color="Resolução", text="Número de Pedidos")
+        fig_res.update_traces(textposition='outside')
+
+        # Mostrando o gráfico
+        col2.plotly_chart(fig_res)
+
         # Mostrando tabela de venda por lote
         col1.write("### Vendas por lote:")
         col1.dataframe(contagem_por_lote, hide_index=True)
