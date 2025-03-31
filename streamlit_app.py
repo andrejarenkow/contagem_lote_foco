@@ -62,10 +62,10 @@ if text_input and codigo_evento:
 
         # Mostrando tabela de venda por lote
         st.write("### Vendas por lote:")
-        st.dataframe(df_resultante, hide_index=True)
+        st.dataframe(contagem_por_lote, hide_index=True)
 
         # Mostrando tabela bruta
         st.write("### Tabela bruta:")
-        st.dataframe(contagem_por_lote, hide_index=True)
+        st.dataframe(df_resultante, hide_index=True)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
