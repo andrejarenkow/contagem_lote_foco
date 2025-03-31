@@ -33,7 +33,7 @@ def process_text(text, codigo_evento, codigo_fotografo):
     
     return df
 
-st.title("Processador de Texto")
+st.title("Contagem de fotos vendidas por lote")
 
 col1, col2 = st.columns([1,2])
 
