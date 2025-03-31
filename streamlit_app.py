@@ -64,8 +64,8 @@ if text_input and codigo_evento:
         col2.plotly_chart(fig)
 
         # Mostrando tabela de venda por lote
-        col2.write("### Vendas por lote:")
-        col2.dataframe(contagem_por_lote, hide_index=True)
+        col1.write("### Vendas por lote:")
+        col1.dataframe(contagem_por_lote, hide_index=True)
 
         # Mostrando tabela bruta
         col2.write("### Tabela bruta:")
