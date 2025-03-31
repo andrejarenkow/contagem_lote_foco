@@ -55,7 +55,7 @@ if text_input and codigo_evento:
         # Criar gráfico
         col2.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
-        contagem_por_lote = df_resultante.groupby(["Lote","Resolução"])["Número de Pedidos"].count().reset_index()
+        contagem_por_lote = df_resultante.groupby(["Lote"])["Número de Pedidos"].count().reset_index()
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
         fig.update_traces(textposition='outside')
