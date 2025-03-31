@@ -38,7 +38,7 @@ st.title("Contagem de fotos vendidas por lote")
 col1, col2 = st.columns([1,3])
 
 with col2:
-    col3, col4 = st.columns([1,2])
+    col3, col4 = st.columns([2,1])
 
 with col1:
     text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
@@ -67,7 +67,7 @@ if text_input and codigo_evento:
         col3.plotly_chart(fig)
 
         # Criar gráfico por resolução
-        col4.write("### Distribuição de fotos por lote")
+        col4.write("### Distribuição de fotos por resolução")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_resolucao = df_resultante.groupby(["Resolução"])["Número de Pedidos"].count().reset_index()
         
