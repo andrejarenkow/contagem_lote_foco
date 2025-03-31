@@ -50,10 +50,10 @@ if text_input and codigo_evento:
         # Mostrando um card de total de vendas
         total_vendas = len(df_resultante)
 
-        col2.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
+        col1.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
         
         # Criar gráfico
-        st.write("### Distribuição de fotos por lote")
+        col2.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].count().reset_index()
         
