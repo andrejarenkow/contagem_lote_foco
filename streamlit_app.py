@@ -6,7 +6,7 @@ import plotly.express as px
 # Configurações da página
 st.set_page_config(
     page_title="Contagem lote",
-    page_icon="	:camera:",
+    page_icon=":camera:",
     #layout="wide",
     initial_sidebar_state='collapsed'
 ) 
