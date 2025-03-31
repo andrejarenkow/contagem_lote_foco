@@ -68,7 +68,7 @@ if text_input and codigo_evento:
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_resolucao = df_resultante.groupby(["Resolução"])["Número de Pedidos"].count().reset_index()
         
-        fig_res = px.bar(contagem_por_resolucao, x="Resolução", y="Número de Pedidos", title="Número de Pedidos por resolução", color="Resolução", text="Número de Pedidos")
+        fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
         fig_res.update_traces(textposition='outside')
 
         # Mostrando o gráfico
