@@ -35,9 +35,12 @@ def process_text(text, codigo_evento, codigo_fotografo):
 
 st.title("Processador de Texto")
 
-text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
-codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
-codigo_evento = st.text_input("Digite o código do evento:")
+col1, col2 = st.columns(2)
+
+with col1:
+    text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
+    codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
+    codigo_evento = st.text_input("Digite o código do evento:")
 
 if text_input and codigo_evento:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
@@ -47,7 +50,7 @@ if text_input and codigo_evento:
         # Mostrando um card de total de vendas
         total_vendas = len(df_resultante)
 
-        st.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
+        col2.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
         
         # Criar gráfico
         st.write("### Distribuição de fotos por lote")
@@ -58,14 +61,14 @@ if text_input and codigo_evento:
         fig.update_traces(textposition='outside')
 
         # Mostrando o gráfico
-        st.plotly_chart(fig)
+        col2.plotly_chart(fig)
 
         # Mostrando tabela de venda por lote
-        st.write("### Vendas por lote:")
-        st.dataframe(contagem_por_lote, hide_index=True)
+        col2.write("### Vendas por lote:")
+        col2.dataframe(contagem_por_lote, hide_index=True)
 
         # Mostrando tabela bruta
-        st.write("### Tabela bruta:")
-        st.dataframe(df_resultante, hide_index=True)
+        col2.write("### Tabela bruta:")
+        col2.dataframe(df_resultante, hide_index=True)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
