@@ -37,6 +37,9 @@ st.title("Contagem de fotos vendidas por lote")
 
 col1, col2 = st.columns([1,3])
 
+with col2:
+    col3, col4 = st.columns([1,2])
+
 with col1:
     text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
@@ -53,7 +56,7 @@ if text_input and codigo_evento:
         col1.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
         
         # Criar gráfico
-        col2.write("### Distribuição de fotos por lote")
+        col3.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_lote = df_resultante.groupby(["Lote"])["Número de Pedidos"].count().reset_index()
         
@@ -61,10 +64,10 @@ if text_input and codigo_evento:
         fig.update_traces(textposition='outside')
 
         # Mostrando o gráfico
-        col2.plotly_chart(fig)
+        col3.plotly_chart(fig)
 
         # Criar gráfico por resolução
-        col2.write("### Distribuição de fotos por lote")
+        col4.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_resolucao = df_resultante.groupby(["Resolução"])["Número de Pedidos"].count().reset_index()
         
@@ -72,7 +75,7 @@ if text_input and codigo_evento:
         fig_res.update_traces(textposition='outside')
 
         # Mostrando o gráfico
-        col2.plotly_chart(fig_res)
+        col4.plotly_chart(fig_res)
 
         # Mostrando tabela de venda por lote
         col1.write("### Vendas por lote:")
