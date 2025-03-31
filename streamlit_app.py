@@ -44,6 +44,11 @@ if text_input and codigo_evento:
     
     if df_resultante is not None and not df_resultante.empty:
 
+        # Mostrando um card de total de vendas
+        total_vendas = len(df_resultante)
+
+        st.metric(value = total_vendas, label = f'Total de vendas do evento {codigo_evento}')
+        
         # Criar gráfico
         st.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
@@ -51,12 +56,16 @@ if text_input and codigo_evento:
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
         fig.update_traces(textposition='outside')
-        
+
+        # Mostrando o gráfico
         st.plotly_chart(fig)
 
-        
+        # Mostrando tabela de venda por lote
+        st.write("### Vendas por lote:")
+        st.dataframe(contagem_por_lote, hide_index=True)
 
-        st.write("### Dados:")
+        # Mostrando tabela bruta
+        st.write("### Tabela bruta:")
         st.dataframe(contagem_por_lote, hide_index=True)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
