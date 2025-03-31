@@ -63,6 +63,7 @@ if text_input and codigo_evento:
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
         fig.update_traces(textposition='outside')
+        fig.update_xaxes(type='category')
 
         # Mostrando o gráfico
         col3.plotly_chart(fig)
