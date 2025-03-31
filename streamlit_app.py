@@ -38,6 +38,7 @@ if text_input and codigo_evento:
 
         # Criar gráfico
         st.write("### Distribuição de fotos por lote")
+        df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_lote = df_resultante.groupby("Lote")["Número de Pedidos"].count().reset_index()
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
@@ -45,7 +46,9 @@ if text_input and codigo_evento:
         
         st.plotly_chart(fig)
 
+        
+
         st.write("### Dados:")
-        st.dataframe(df_resultante)
+        st.dataframe(contagem_por_lote)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
