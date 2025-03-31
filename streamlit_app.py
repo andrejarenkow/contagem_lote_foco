@@ -68,7 +68,7 @@ if text_input and codigo_evento:
         col1.dataframe(contagem_por_lote, hide_index=True)
 
         # Mostrando tabela bruta
-        col2.write("### Tabela bruta:")
-        col2.dataframe(df_resultante, hide_index=True)
+        #col2.write("### Tabela bruta:")
+        #col2.dataframe(df_resultante, hide_index=True)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
