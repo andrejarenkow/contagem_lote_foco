@@ -57,6 +57,6 @@ if text_input and codigo_evento:
         
 
         st.write("### Dados:")
-        st.dataframe(contagem_por_lote)
+        st.dataframe(contagem_por_lote, hide_index=True)
     else:
         st.warning("Nenhum dado encontrado para o código informado.")
