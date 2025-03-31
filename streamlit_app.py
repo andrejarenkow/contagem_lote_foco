@@ -3,6 +3,14 @@ import pandas as pd
 import re
 import plotly.express as px
 
+# Configurações da página
+st.set_page_config(
+    page_title="Contagem lote",
+    page_icon="	:camera:",
+    #layout="wide",
+    initial_sidebar_state='collapsed'
+) 
+
 def process_text(text, codigo_evento, codigo_fotografo):
     linhas = text.split("\n")  # Separar por linhas
     
