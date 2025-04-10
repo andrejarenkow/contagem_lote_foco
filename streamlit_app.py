@@ -57,7 +57,7 @@ if text_input and codigo_evento:
 
         # Mostrando um card com a média de fotos por pedido
         # Passo 1: contar quantas fotos (linhas) existem por número de pedido
-        contagem = df['Número de Pedidos'].value_counts()
+        contagem = df_resultante['Número de Pedidos'].value_counts()
         
         # Passo 2: calcular a média dessas contagens
         media_fotos_por_pedido = contagem.mean()
