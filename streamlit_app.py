@@ -60,7 +60,7 @@ if text_input and codigo_evento:
         contagem = df_resultante['Número de Pedidos'].value_counts()
         
         # Passo 2: calcular a média dessas contagens
-        media_fotos_por_pedido = contagem.mean()
+        media_fotos_por_pedido = round(contagem.mean(),2)
 
         col1.metric(value = media_fotos_por_pedido, label = f'Média de fotos por pedido {codigo_evento}')
         
