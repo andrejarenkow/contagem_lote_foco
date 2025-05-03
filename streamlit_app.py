@@ -44,6 +44,7 @@ with col1:
     text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
     codigo_evento = st.text_input("Digite o código do evento:")
+    valor_evento = st.number_input('Digite o valor total de venda:')
 
 if text_input and codigo_evento:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
@@ -87,6 +88,24 @@ if text_input and codigo_evento:
 
         # Mostrando o gráfico
         col4.plotly_chart(fig_res)
+
+        # Calcular o número total de fotos
+        total_fotos = df_resultante.shape[0]
+        
+        # Calcular a quantidade de fotos por lote
+        contagem_por_lote = df_resultante.groupby(["Lote"])["Número de Pedidos"].count().reset_index()
+        contagem_por_lote.rename(columns={"Número de Pedidos": "Quantidade de Fotos"}, inplace=True)
+        
+        # Calcular proporção de cada lote
+        contagem_por_lote["% do Total"] = contagem_por_lote["Quantidade de Fotos"] / total_fotos
+        
+        # Calcular valor proporcional para cada lote
+        contagem_por_lote["Valor R$ por Lote"] = contagem_por_lote["% do Total"] * valor_evento
+        contagem_por_lote["Valor R$ por Lote"] = contagem_por_lote["Valor R$ por Lote"].round(2)
+
+        # Mostrar tabela com valor proporcional por lote
+        col2.write("### Valor proporcional de venda por lote")
+        col2.dataframe(contagem_por_lote, hide_index=True)
 
         # Mostrando tabela de venda por lote
         #col1.write("### Vendas por lote:")
