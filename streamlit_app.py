@@ -45,8 +45,9 @@ with col1:
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
     codigo_evento = st.text_input("Digite o código do evento:")
     valor_evento = st.number_input('Digite o valor total de venda:')
+    botao_processar = st.button('Processar dados')
 
-if text_input and codigo_evento:
+if text_input and codigo_evento and botao_processar:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
     
     if df_resultante is not None and not df_resultante.empty:
