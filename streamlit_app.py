@@ -129,6 +129,7 @@ with col1:
 if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
     df_dados_pedidos = extrair_dataframe_de_texto(text_input_dados_pedido)
+    df_dados_pedidos = df_dados_pedidos[df_dados_pedidos['ID'].isin(df_resultante['N~umero de Pedidos'])]
 
     if df_resultante is not None and not df_resultante.empty:
 
