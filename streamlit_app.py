@@ -31,8 +31,57 @@ def extrair_dataframe_de_texto(texto: str) -> pd.DataFrame:
     # Converte os tipos de dados
     df["ID"] = df["ID"].astype(int)
     df["Data"] = pd.to_datetime(df["Data"], format="%d/%m/%Y %H:%M")
+
+    # Adicionar 3 horas em todos os horários
+    df["Data"] = df["Data"] + pd.Timedelta(hours=3)
     
     return df
+
+# Criação do gráfico de porcentagem
+def grafico_porcentagem_vendas_intervalos(df, data_inicial_str, tipo_evento="o evento"):
+    """
+    Cria uma coluna com intervalos de tempo desde uma data inicial e plota a porcentagem de vendas por intervalo.
+
+    Parâmetros:
+    - df: DataFrame com a coluna 'Data' em datetime.
+    - data_inicial_str: String da data/hora inicial no formato 'DD/MM/YYYY HH:MM:SS'.
+    - tipo_evento: Nome do evento para usar no título do gráfico.
+    """
+    # Converter string para datetime
+    data_inicial = pd.to_datetime(data_inicial_str, format="%d/%m/%Y %H:%M:%S")
+
+    # Calcular diferença em horas desde o início
+    df["Horas desde o início"] = (df["Data"] - data_inicial).dt.total_seconds() / 3600
+
+    # Definir bins e labels
+    bins = [0, 1, 2, 3, 4, 5, 6, 12, 24, 48, 72, 10000]
+    labels = ['0 a 1h', '1 a 2h', '2 a 3h', '3 a 4h', '4 a 5h', '5 a 6h', 
+              '6 a 12h', '12h a 24h', '24h a 48h','48h a 72h', 'Mais de 72h']
+
+    # Criar coluna de intervalos
+    df["Intervalo de Tempo"] = pd.cut(df["Horas desde o início"], bins=bins, labels=labels, right=False)
+
+    # Contar e calcular porcentagem
+    contagem = df["Intervalo de Tempo"].value_counts(sort=False)
+    porcentagem = (contagem / contagem.sum()) * 100
+
+    # Plotar gráfico de barras com Plotly
+    fig = px.bar(
+        x=porcentagem.index.astype(str),
+        y=porcentagem.values,
+        labels={'x': 'Intervalo', 'y': 'Porcentagem'},
+        title=f'Porcentagem de vendas após a liberação no site da Foco Radical para {tipo_evento}'
+    )
+
+    # Adicionar valores acima das barras
+    fig.update_layout(
+        annotations=[
+            dict(text=f"{val:.2f}%", x=label, y=val + 1, font_size=14, showarrow=False)
+            for label, val in zip(porcentagem.index.astype(str), porcentagem.values)
+        ]
+    )
+
+    return fig  # Retorna o df com a nova coluna se quiser usá-lo depois
 
 def process_text(text, codigo_evento, codigo_fotografo):
     linhas = text.split("\n")  # Separar por linhas
@@ -65,11 +114,16 @@ with col2:
 
 with col1:
     text_input = st.text_area("Cole o texto das fotos vendidas do evento:")
-    text_input = st.text_area("Cole o texto do link https://www.focomarket.com.br/report/orders:")
+    text_input_dados_pedido = st.text_area("Cole o texto do link https://www.focomarket.com.br/report/orders:")
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
     codigo_evento = st.text_input("Digite o código do evento:")
     valor_evento = st.number_input('Digite o valor total de venda:')
     botao_processar = st.button('Processar dados')
+    data_input = st.date_input("Data inicial da liberação:")
+    hora_input = st.time_input("Hora inicial da liberação:")
+
+    # Juntar data e hora
+    data_inicial = datetime.combine(data_input, hora_input)
 
 if text_input and codigo_evento and botao_processar:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
