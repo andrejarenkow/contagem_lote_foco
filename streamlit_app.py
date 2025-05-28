@@ -129,8 +129,7 @@ with col1:
 if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
     df_dados_pedidos = extrair_dataframe_de_texto(text_input_dados_pedido)
-    df_resultante
-    df_dados_pedidos
+
     if df_resultante is not None and not df_resultante.empty:
 
         # Mostrando um card de total de vendas
@@ -188,6 +187,8 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         # Mostrar tabela com valor proporcional por lote
         col2.write("### Valor proporcional de venda por lote")
         col2.dataframe(contagem_por_lote, hide_index=True)
+        col.2dataframe(df_resultante)
+        col.2dataframe(df_dados_pedidos)
 
         # Mostrando tabela de venda por lote
         #col1.write("### Vendas por lote:")
