@@ -149,7 +149,7 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         col1.metric(value = media_fotos_por_pedido, label = f'Média de fotos por pedido {codigo_evento}')
         
         # Criar gráfico
-        col3.write("### Distribuição de fotos por lote")
+        #col3.write("### Distribuição de fotos por lote")
         df_resultante['Lote'] = df_resultante['Lote'].astype(str)
         contagem_por_lote = df_resultante.groupby(["Lote"])["Número de Pedidos"].count().reset_index()
         contagem_por_lote['Lote'] = contagem_por_lote['Lote'].astype(str)
@@ -163,7 +163,7 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
 
         # Criar gráfico por resolução
         # Mostrando grafico de histograma
-        col2.write("### Distribuição de vendas")
+        #col2.write("### Distribuição de vendas")
         col4.plotly_chart(grafico_histograma)
         
         #fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
@@ -187,7 +187,7 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         contagem_por_lote["Valor R$ por Lote"] = contagem_por_lote["Valor R$ por Lote"].round(2)
 
         # Mostrar tabela com valor proporcional por lote
-        col2.write("### Valor proporcional de venda por lote")
+        #col2.write("### Valor proporcional de venda por lote")
         col2.dataframe(contagem_por_lote, hide_index=True)
         #col2.dataframe(df_resultante)
         #col2.dataframe(df_dados_pedidos)
