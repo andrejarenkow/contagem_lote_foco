@@ -161,13 +161,11 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         # Mostrando o gráfico
         col3.plotly_chart(fig)
 
-        # Mostrando grafico de histograma
-        col3.plotly_chart(grafico_histograma)
+
 
         # Criar gráfico por resolução
-        col4.write("### Distribuição de fotos por resolução")
-        df_resultante['Lote'] = df_resultante['Lote'].astype(str)
-        contagem_por_resolucao = df_resultante.groupby(["Resolução"])["Número de Pedidos"].count().reset_index()
+        # Mostrando grafico de histograma
+        col4.plotly_chart(grafico_histograma)
         
         fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
         fig_res.update_traces(textposition='outside')
