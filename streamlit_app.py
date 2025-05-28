@@ -11,6 +11,29 @@ st.set_page_config(
     initial_sidebar_state='collapsed'
 ) 
 
+# Processamento dos dados dos pedidos
+def extrair_dataframe_de_texto(texto: str) -> pd.DataFrame:
+    """
+    Extrai um DataFrame a partir de um texto contendo linhas com o padrão: ID (número) + data e hora.
+    
+    Parâmetros:
+    texto (str): Texto bruto contendo os dados.
+
+    Retorna:
+    pd.DataFrame: DataFrame com colunas 'ID' e 'Data' (como datetime).
+    """
+    # Usa regex para encontrar todas as linhas com padrão: número seguido de data e hora
+    linhas = re.findall(r"(\d+)\s+(\d{2}/\d{2}/\d{4} \d{2}:\d{2})", texto)
+    
+    # Cria o DataFrame
+    df = pd.DataFrame(linhas, columns=["ID", "Data"])
+    
+    # Converte os tipos de dados
+    df["ID"] = df["ID"].astype(int)
+    df["Data"] = pd.to_datetime(df["Data"], format="%d/%m/%Y %H:%M")
+    
+    return df
+
 def process_text(text, codigo_evento, codigo_fotografo):
     linhas = text.split("\n")  # Separar por linhas
     
