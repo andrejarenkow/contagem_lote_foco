@@ -161,17 +161,15 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         # Mostrando o gráfico
         col3.plotly_chart(fig)
 
-
-
         # Criar gráfico por resolução
         # Mostrando grafico de histograma
         col4.plotly_chart(grafico_histograma)
         
-        fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
-        fig_res.update_traces(textposition='outside')
+        #fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
+        #fig_res.update_traces(textposition='outside')
 
         # Mostrando o gráfico
-        col4.plotly_chart(fig_res)
+        #col4.plotly_chart(fig_res)
 
         # Calcular o número total de fotos
         total_fotos = df_resultante.shape[0]
