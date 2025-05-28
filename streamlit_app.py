@@ -126,8 +126,9 @@ with col1:
     # Juntar data e hora
     data_inicial = datetime.combine(data_input, hora_input)
 
-if text_input and codigo_evento and botao_processar:
+if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
     df_resultante = process_text(text_input, codigo_evento, codigo_fotografo)
+    df_dados_pedidos = extrair_dataframe_de_texto(text_input_dados_pedido)
     
     if df_resultante is not None and not df_resultante.empty:
 
