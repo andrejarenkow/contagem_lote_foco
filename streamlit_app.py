@@ -192,8 +192,8 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         # Mostrar tabela com valor proporcional por lote
         col2.write("### Valor proporcional de venda por lote")
         col2.dataframe(contagem_por_lote, hide_index=True)
-        col2.dataframe(df_resultante)
-        col2.dataframe(df_dados_pedidos)
+        #col2.dataframe(df_resultante)
+        #col2.dataframe(df_dados_pedidos)
 
         # Mostrando tabela de venda por lote
         #col1.write("### Vendas por lote:")
