@@ -119,9 +119,9 @@ with col1:
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
     codigo_evento = st.text_input("Digite o código do evento:")
     valor_evento = st.number_input('Digite o valor total de venda:')
-    botao_processar = st.button('Processar dados')
     data_input = st.date_input("Data inicial da liberação:")
     hora_input = st.time_input("Hora inicial da liberação:")
+    botao_processar = st.button('Processar dados')
 
     # Juntar data e hora
     data_inicial = datetime.combine(data_input, hora_input)
