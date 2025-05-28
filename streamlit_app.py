@@ -155,7 +155,7 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
         contagem_por_lote['Lote'] = contagem_por_lote['Lote'].astype(str)
         
         fig = px.bar(contagem_por_lote, x="Lote", y="Número de Pedidos", title="Número de Pedidos por Lote", color="Lote", text="Número de Pedidos")
-        fig.update_traces(textposition='outside')
+        fig.update_traces(textposition='inside')
         fig.update_xaxes(type='category')
 
         # Mostrando o gráfico
@@ -163,6 +163,7 @@ if text_input and codigo_evento and botao_processar and text_input_dados_pedido:
 
         # Criar gráfico por resolução
         # Mostrando grafico de histograma
+        col2.write("### Distribuição de vendas")
         col4.plotly_chart(grafico_histograma)
         
         #fig_res = px.pie(contagem_por_resolucao, names="Resolução", values="Número de Pedidos", title="Número de Pedidos por resolução", )
