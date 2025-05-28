@@ -64,7 +64,8 @@ with col2:
     col3, col4 = st.columns([3,2])
 
 with col1:
-    text_input = st.text_area("Cole ou digite o conteúdo do arquivo:")
+    text_input = st.text_area("Cole o texto das fotos vendidas do evento:")
+    text_input = st.text_area("Cole o texto do link https://www.focomarket.com.br/report/orders:")
     codigo_fotografo = st.text_input("Digite a sigla do fotógrafo:")
     codigo_evento = st.text_input("Digite o código do evento:")
     valor_evento = st.number_input('Digite o valor total de venda:')
