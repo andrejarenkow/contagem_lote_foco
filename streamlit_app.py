@@ -42,14 +42,7 @@ def extrair_dataframe_de_texto(texto: str) -> pd.DataFrame:
 # Criação do gráfico de porcentagem
 def grafico_porcentagem_vendas_intervalos(df, data_inicial_str, tipo_evento="o evento"):
     try:
-        """
-        Cria uma coluna com intervalos de tempo desde uma data inicial e plota a porcentagem de vendas por intervalo.
-    
-        Parâmetros:
-        - df: DataFrame com a coluna 'Data' em datetime.
-        - data_inicial_str: String da data/hora inicial no formato 'DD/MM/YYYY HH:MM:SS'.
-        - tipo_evento: Nome do evento para usar no título do gráfico.
-        """
+
         # Converter string para datetime
         data_inicial = pd.to_datetime(data_inicial_str, format="%d/%m/%Y %H:%M:%S")
     
