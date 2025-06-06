@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import plotly.express as px
 from datetime import datetime
+import plotly.graph_objects as go
 
 # Configurações da página
 st.set_page_config(
@@ -83,7 +84,7 @@ def grafico_porcentagem_vendas_intervalos(df, data_inicial_str, tipo_evento="o e
             ]
         )
     except:
-        fig = None
+        fig = go.Figure()
     return fig  # Retorna o df com a nova coluna se quiser usá-lo depois
 
 def process_text(text, codigo_evento, codigo_fotografo):
