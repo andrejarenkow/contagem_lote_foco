@@ -95,17 +95,21 @@ def process_text(text, codigo_evento, codigo_fotografo):
         return None  # Retorna None se nenhum dado for encontrado
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
-    
     prefixo = f"{codigo_fotografo}{codigo_evento}"
     df = df[df["Cód."].str.startswith(prefixo)].reset_index(drop=True)
-
-    # Extrair todo o valor que vem após o prefixo como Lote
-    df["Lote"] = df["Cód."].str[len(prefixo):]
-
-    # Regra especial: se o lote for exatamente "822" e os códigos forem os esperados, mudar para "9"
-    if codigo_fotografo == "NARR" and str(codigo_evento) == "66142":
-        df.loc[df["Lote"] == "822", "Lote"] = "9"
     
+    # Obter os caracteres após o prefixo
+    sufixo = df["Cód."].str[len(prefixo):]
+    
+    # Lógica para extrair o lote como 1 caractere, com exceção para o caso especial
+    df["Lote"] = sufixo.apply(
+        lambda x: "9" if (
+            codigo_fotografo == "NARR" and 
+            str(codigo_evento) == "66142" and 
+            x.startswith("822")
+        ) else x[0] if x else None
+    )
+
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
     
     return df
