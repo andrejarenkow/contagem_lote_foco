@@ -13,6 +13,13 @@ st.set_page_config(
     initial_sidebar_state='collapsed'
 ) 
 
+#Ajuste do lote para meia maratona
+def ajustar_lote(cod, lote_atual):
+    padrao = r'^NARR66142(\d+)822'
+    if re.match(padrao, cod):
+        return 9
+    return lote_atual
+
 # Processamento dos dados dos pedidos
 def extrair_dataframe_de_texto(texto: str) -> pd.DataFrame:
     """
@@ -95,22 +102,11 @@ def process_text(text, codigo_evento, codigo_fotografo):
         return None  # Retorna None se nenhum dado for encontrado
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
-    prefixo = f"{codigo_fotografo}{codigo_evento}"
-    df = df[df["Cód."].str.startswith(prefixo)].reset_index(drop=True)
-    
-    # Obter os caracteres após o prefixo
-    sufixo = df["Cód."].str[len(prefixo):]
-    
-    # Lógica para extrair o lote como 1 caractere, com exceção para o caso especial
-    df["Lote"] = sufixo.apply(
-        lambda x: "9" if (
-            codigo_fotografo == "NARR" and 
-            str(codigo_evento) == "66142" and 
-            x.startswith("822")
-        ) else x[0] if x else None
-    )
-
+    df = df[df["Cód."].str.startswith(f"{codigo_fotografo}{codigo_evento}")].reset_index(drop=True)
+    # Extrair o número logo após "{codigo_fotografo}{codigo_evento}" como o Lote
+    df["Lote"] = df["Cód."].str[len(f"{codigo_fotografo}{codigo_evento}")].astype(str)
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
+    df["Lote"] = df.apply(lambda row: ajustar_lote(row["Cód."], row["Lote"]), axis=1)
     
     return df
 
