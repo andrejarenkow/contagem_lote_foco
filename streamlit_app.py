@@ -95,9 +95,17 @@ def process_text(text, codigo_evento, codigo_fotografo):
         return None  # Retorna None se nenhum dado for encontrado
     
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
-    df = df[df["Cód."].str.startswith(f"{codigo_fotografo}{codigo_evento}")].reset_index(drop=True)
-    # Extrair o número logo após "LENS{codigo_evento}" como o Lote
-    df["Lote"] = df["Cód."].str[len(f"{codigo_fotografo}{codigo_evento}")].astype(str)
+    
+    prefixo = f"{codigo_fotografo}{codigo_evento}"
+    df = df[df["Cód."].str.startswith(prefixo)].reset_index(drop=True)
+
+    # Extrair os dígitos imediatamente após o prefixo
+    df["Lote"] = df["Cód."].str[len(prefixo):].str.extract(r'(\d+)')[0]
+    
+    # Aplicar a regra específica
+    if codigo_fotografo == "NARR" and str(codigo_evento) == "66142":
+        df["Lote"] = df["Lote"].apply(lambda x: "9" if x == "822" else x)
+    
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
     
     return df
