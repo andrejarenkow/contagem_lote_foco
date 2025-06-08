@@ -97,7 +97,7 @@ def process_text(text, codigo_evento, codigo_fotografo):
     df = pd.DataFrame(dados, columns=["Número de Pedidos", "Resolução", "Cód."])
     df = df[df["Cód."].str.startswith(f"{codigo_fotografo}{codigo_evento}")].reset_index(drop=True)
     # Extrair o número logo após "LENS{codigo_evento}" como o Lote
-    df["Lote"] = df["Cód."].str[len(f"LENS{codigo_evento}")].astype(str)
+    df["Lote"] = df["Cód."].str[len(f"{codigo_fotografo}{codigo_evento}")].astype(str)
     df["Número de Pedidos"] = df["Número de Pedidos"].astype(int)
     
     return df
